@@ -9,3 +9,5 @@ tickgame.log
 vm/.vagrant
 game/src/main/webapp
 tickgame.log.1
+application-local.properties
+kicker.log
