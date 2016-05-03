@@ -1,0 +1,148 @@
+buildscript {
+    ext {
+        springBootVersion = '1.2.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath('io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE')
+        classpath "net.saliman:gradle-cobertura-plugin:2.3.0"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+apply plugin: 'jacoco'
+apply plugin: 'net.saliman.cobertura'
+
+
+war {
+    baseName = 'kicker'
+    version = '0.0.1-SNAPSHOT'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jacocoTestReport.dependsOn 'test'
+
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it,
+                    exclude: ["de/almostintelligent/kicker/fixture/**"])
+        })
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+task VersionConfig {
+    ext.InfoFile = "version.info"
+}
+
+def getVersionString(versionFile) {
+
+    if (!versionFile.exists())
+        versionFile.createNewFile()
+
+    def versionString = versionFile.text
+
+    if (versionString.empty) {
+        versionString = "0.0.0-alpha"
+    }
+
+    return versionString
+}
+
+task updateVersion << {
+    war.version = getVersionString(new File(VersionConfig.InfoFile))
+}
+
+compileJava {
+    dependsOn updateVersion
+}
+
+task incVersion << {
+    def versionFile = new File(VersionConfig.InfoFile)
+    def versionString = getVersionString(versionFile)
+    def parts = versionString.split("\\-");
+    def versionParts = parts[0].split("\\.")
+    def state = parts[1]
+    def major = versionParts[0] as Integer
+    def minor = versionParts[1] as Integer
+    def build = versionParts[2] as Integer
+
+    build++
+    if (build > 100) {
+        build = 0
+        minor++
+    }
+
+    if (minor > 10) {
+        minor = 0
+        major++
+    }
+
+    def newVersionString = String.join(".", major.toString(), minor.toString(), build.toString()) + "-" + state
+
+    versionFile.text = newVersionString
+}
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile('org.springframework.boot:spring-boot-starter-data-mongodb')
+    compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-mail")
+
+    compile("org.springframework.security.oauth:spring-security-oauth2:2.0.8.RELEASE")
+
+    compile("org.projectlombok:lombok:1.16.6")
+
+    compile('com.google.guava:guava:19.0')
+    compile('org.atteo:evo-inflector:1.2.1')
+
+    runtime('mysql:mysql-connector-java')
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Angel.SR3"
+    }
+}
+
+
+eclipse {
+    classpath {
+        containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.7'
+}

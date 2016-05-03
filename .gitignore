@@ -1,0 +1,11 @@
+src/main/webapp
+*.iml
+*.ipr
+*.iws
+out
+.idea
+*.out
+tickgame.log
+vm/.vagrant
+game/src/main/webapp
+tickgame.log.1
