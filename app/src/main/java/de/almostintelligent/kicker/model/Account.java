@@ -30,6 +30,9 @@ public class Account extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
+    @ManyToMany(targetEntity = Team.class)
+    private Set<Team> teams;
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
