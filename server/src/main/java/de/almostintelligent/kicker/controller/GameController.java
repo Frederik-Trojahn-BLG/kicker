@@ -1,7 +1,7 @@
 package de.almostintelligent.kicker.controller;
 
-/**
- * Created by frederiktrojahn on 04.05.16.
- */
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
 public class GameController {
 }

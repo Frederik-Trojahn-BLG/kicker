@@ -26,7 +26,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Account player() throws AccountNotFoundException, LoginFailedException {
+    public Account currentUser() throws AccountNotFoundException, LoginFailedException {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null) {
             failedAuthentication("no security context found");
@@ -44,7 +44,7 @@ public class AccountService {
             throw new AccountNotFoundException();
         }
 
-        return accountRepository.findOneByEmail(principal.getUsername());
+        return accountRepository.findOne(principal.getUsername());
     }
 
     private void failedAuthentication(String msg) throws LoginFailedException {

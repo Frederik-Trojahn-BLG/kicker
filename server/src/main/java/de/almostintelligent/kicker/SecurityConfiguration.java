@@ -1,6 +1,7 @@
 package de.almostintelligent.kicker;
 
 import de.almostintelligent.kicker.model.Role;
+import de.almostintelligent.kicker.oauth.KickerTokenEnhancer;
 import de.almostintelligent.kicker.service.AccountDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -89,11 +91,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/assets/**",
                             "/views/**",
                             "/styles/**").anonymous();
-                    //.antMatchers("/api/register").anonymous()
-                    //.antMatchers("/api/blogs").anonymous()
-                    //.antMatchers("/api/**").hasRole("USER")
-                    //.antMatchers("/dev/**").permitAll()
-                    //.antMatchers("/admin/**").hasRole("ADMIN");
+            //.antMatchers("/api/register").anonymous()
+            //.antMatchers("/api/blogs").anonymous()
+            //.antMatchers("/api/**").hasRole("USER")
+            //.antMatchers("/dev/**").permitAll()
+            //.antMatchers("/admin/**").hasRole("ADMIN");
         }
     }
 
@@ -109,6 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         public DefaultTokenServices tokenServices;
 
         private TokenStore tokenStore;
+        private TokenEnhancer tokenEnhancer;
 
         @PostConstruct
         private void setUpTokenStore() {
@@ -117,9 +120,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             tokenServices.setSupportRefreshToken(true);
             tokenServices.setReuseRefreshToken(false);
             tokenServices.setTokenStore(this.tokenStore);
+            tokenServices.setTokenEnhancer(tokenEnhancer);
             tokenServices.setAccessTokenValiditySeconds(12 * 60 * 60);
             tokenServices.setRefreshTokenValiditySeconds(60 * 24 * 60 * 60);
             this.tokenServices = tokenServices;
+
+            tokenEnhancer = new KickerTokenEnhancer();
         }
 
         @Autowired
@@ -131,6 +137,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 throws Exception {
             endpoints
                     .tokenStore(tokenStore)
+                    .tokenEnhancer(tokenEnhancer)
                     .tokenServices(tokenServices)
                     .authenticationManager(authenticationManager);
         }

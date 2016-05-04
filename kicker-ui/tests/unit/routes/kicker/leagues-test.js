@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:kicker/my-teams', 'Unit | Route | kicker/my teams', {
+moduleFor('route:kicker/leagues', 'Unit | Route | kicker/leagues', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

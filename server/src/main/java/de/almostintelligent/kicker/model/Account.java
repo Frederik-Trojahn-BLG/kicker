@@ -111,4 +111,11 @@ public class Account extends BaseEntity implements UserDetails {
         this.roles = roles;
     }
 
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 }
