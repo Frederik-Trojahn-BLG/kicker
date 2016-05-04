@@ -4,6 +4,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.util.Set;
 
 @Entity(name = "team")
@@ -17,5 +18,8 @@ public class Team extends BaseEntity {
 
     @ManyToMany(targetEntity = League.class, mappedBy = "teams")
     private Set<League> leagues;
+
+    @OneToMany(mappedBy = "team")
+    private Set<GameResult> results;
 
 }

@@ -1,0 +1,11 @@
+<form class="form-signin" {{action "login" on="submit"}}>
+    <h2 class="form-signin-heading">Bitte anmelden</h2>
+
+    <label for="username">E-Mail:</label>
+    {{input type="text" value=email class="form-control" placeholder="Benutzername"}}
+
+    <label for="password">Password:</label>
+    {{input type="password" value=password class="form-control" placeholder="Passwort"}}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
+</form>

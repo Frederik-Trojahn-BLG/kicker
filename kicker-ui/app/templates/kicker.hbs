@@ -1,0 +1,38 @@
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                {{#link-to "kicker"}}Kicker{{/link-to}}
+            </li>
+            <li>
+                {{#link-to "kicker.dashboard"}}Dashboard{{/link-to}}
+            </li>
+            <li>
+                {{#link-to "kicker.my-teams"}}Meine Teams{{/link-to}}
+            </li>
+            <li>
+                {{#link-to "kicker.my-leagues"}}Meine Ligen{{/link-to}}
+            </li>
+            <li>
+                {{#link-to "kicker.score-boards"}}Tabellen{{/link-to}}
+            </li>
+        </ul>
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    {{outlet}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
