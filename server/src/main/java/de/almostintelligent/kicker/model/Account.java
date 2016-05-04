@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "account")
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = {"teams"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Account extends BaseEntity implements UserDetails {
 

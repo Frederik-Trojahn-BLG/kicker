@@ -44,7 +44,7 @@ public class AccountService {
             throw new AccountNotFoundException();
         }
 
-        return accountRepository.findOne(principal.getUsername());
+        return accountRepository.findOneByEmail(principal.getUsername());
     }
 
     private void failedAuthentication(String msg) throws LoginFailedException {
