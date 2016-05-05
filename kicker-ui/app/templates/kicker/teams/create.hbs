@@ -1,0 +1,15 @@
+<div class="container-fluid">
+    <form class="create-form" {{action "createTeam" on="submit"}}>
+        <h2>Neues Team anlegen</h2>
+
+        <div class="form-group">
+            <label for="username">Name:</label>
+            {{input type="text" value=teamName class="form-control"}}
+        </div>
+
+        <button class="btn btn-default" type="submit">Anlegen</button>
+    </form>
+
+</div>
+{{outlet}}
+

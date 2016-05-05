@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Entity(name = "account")
 @EqualsAndHashCode(callSuper = false, exclude = {"teams"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Account.class)
 public class Account extends BaseEntity implements UserDetails {
 
     private String name;
@@ -30,7 +30,15 @@ public class Account extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
-    @ManyToMany(targetEntity = Team.class)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "account_has_team",
+            joinColumns = @JoinColumn(
+                    name = "account_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "team_id",
+                    referencedColumnName = "id"))
     private Set<Team> teams;
 
     @Override
@@ -111,6 +119,7 @@ public class Account extends BaseEntity implements UserDetails {
         this.roles = roles;
     }
 
+    @JsonIgnore
     public Set<Team> getTeams() {
         return teams;
     }

@@ -1,0 +1,23 @@
+<table class="table">
+
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Spieler</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {{#each model as |team|}}
+        <tr>
+            <td>{{team.name}}</td>
+            <td>
+                {{#each team.members as |member|}}{{member.name}}{{/each}}
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+
+</table>
+
+{{outlet}}

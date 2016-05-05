@@ -6,10 +6,10 @@ import org.springframework.util.Assert;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
-public class EmberModel extends ConcurrentHashMap<String, Object> {
+public class EmberModel extends HashMap<String, Object> {
 
     private EmberModel() {
         super();
@@ -20,7 +20,7 @@ public class EmberModel extends ConcurrentHashMap<String, Object> {
     }
 
     public static class Builder {
-        private ConcurrentHashMap<String, Object> items = new ConcurrentHashMap<>();
+        private HashMap<String, Object> items = new HashMap<>();
 
         public Builder(Class<?> clazz, Collection<?> entities) {
             sideLoad(clazz, entities);
@@ -45,6 +45,11 @@ public class EmberModel extends ConcurrentHashMap<String, Object> {
 
         public Builder sideLoad(Class<?> clazz, Object entity) {
             sideLoad(clazz, entity, false);
+            return this;
+        }
+
+        public Builder sideLoad(String name, Object entity) {
+            addToMap(name, entity);
             return this;
         }
 

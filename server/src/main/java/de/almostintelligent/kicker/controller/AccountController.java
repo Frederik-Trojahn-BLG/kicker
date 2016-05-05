@@ -22,7 +22,7 @@ public class AccountController {
 
     @RequestMapping(value = "/api/currentUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8)
     public EmberModel getCurrentUser() throws AccountNotFoundException, LoginFailedException {
-        return new EmberModel.Builder("current-user", accountService.currentUser()).build();
+        return new EmberModel.Builder(AccountService.CURRENT_USER, accountService.currentUser()).build();
     }
 
 }

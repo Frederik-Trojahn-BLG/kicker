@@ -3,6 +3,7 @@ package de.almostintelligent.kicker.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -12,12 +13,13 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = false, exclude = {"members", "leagues", "results"})
 public class Team extends BaseEntity {
 
+    @Column(nullable = false)
     private String name;
 
-    @ManyToMany(targetEntity = Account.class, mappedBy = "teams")
+    @ManyToMany(mappedBy = "teams")
     private Set<Account> members;
 
-    @ManyToMany(targetEntity = League.class, mappedBy = "teams")
+    @ManyToMany(mappedBy = "teams")
     private Set<League> leagues;
 
     @OneToMany(mappedBy = "team")
