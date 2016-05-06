@@ -4,12 +4,12 @@ import de.almostintelligent.kicker.api.dto.TeamDTO;
 import de.almostintelligent.kicker.api.request.CreateTeamRequest;
 import de.almostintelligent.kicker.model.Account;
 import de.almostintelligent.kicker.model.Team;
+import de.almostintelligent.kicker.model.TeamInvitation;
 import de.almostintelligent.kicker.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 @Service
 public class TeamService {
@@ -26,5 +26,9 @@ public class TeamService {
         Team team = new Team();
         team.setName(teamDTO.getName());
         return teamRepository.save(team);
+    }
+
+    public Collection<TeamInvitation> getTeamInvitations(Account account) {
+        return account.getTeamInvitations();
     }
 }

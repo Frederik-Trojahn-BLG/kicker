@@ -14,6 +14,7 @@ Router.map(function() {
       this.route('create');
       this.route('overview');
       this.route('invitations');
+      this.route('invite');
     });
     this.route('leagues');
   });

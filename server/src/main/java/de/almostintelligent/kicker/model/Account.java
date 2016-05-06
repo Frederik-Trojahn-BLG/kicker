@@ -41,6 +41,9 @@ public class Account extends BaseEntity implements UserDetails {
                     referencedColumnName = "id"))
     private Set<Team> teams;
 
+    @OneToMany(mappedBy = "account")
+    private Set<TeamInvitation> teamInvitations;
+
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -126,5 +129,13 @@ public class Account extends BaseEntity implements UserDetails {
 
     public void setTeams(Set<Team> teams) {
         this.teams = teams;
+    }
+
+    public Set<TeamInvitation> getTeamInvitations() {
+        return teamInvitations;
+    }
+
+    public void setTeamInvitations(Set<TeamInvitation> teamInvitations) {
+        this.teamInvitations = teamInvitations;
     }
 }

@@ -36,7 +36,6 @@ public class LeagueController {
 
         return new EmberModel.Builder(League.class, leagues)
                 .sideLoad(Team.class, account.getTeams())
-                .sideLoad(AccountService.CURRENT_USER, account)
                 .build();
     }
 

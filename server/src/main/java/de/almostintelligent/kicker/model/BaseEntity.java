@@ -36,9 +36,4 @@ abstract public class BaseEntity {
     public void preUpdate() {
         updatedAt = new Date().getTime();
     }
-
-    public String getId() {
-        String id = this.id.toLowerCase();
-        return id;
-    }
 }

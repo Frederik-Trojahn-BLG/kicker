@@ -2,8 +2,9 @@
 
     <thead>
     <tr>
-        <th>Name</th>
-        <th>Spieler</th>
+        <th width="30%">Name</th>
+        <th width="40%">Spieler</th>
+        <th></th>
     </tr>
     </thead>
 
@@ -12,7 +13,12 @@
         <tr>
             <td>{{team.name}}</td>
             <td>
-                {{#each team.members as |member|}}{{member.name}}{{/each}}
+                {{#each team.members as |member|}}
+                    {{member.name}}
+                {{/each}}
+            </td>
+            <td>
+
             </td>
         </tr>
     {{/each}}

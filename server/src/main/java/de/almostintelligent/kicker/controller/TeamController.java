@@ -7,6 +7,7 @@ import de.almostintelligent.kicker.exception.LoginFailedException;
 import de.almostintelligent.kicker.media.MediaType;
 import de.almostintelligent.kicker.model.Account;
 import de.almostintelligent.kicker.model.Team;
+import de.almostintelligent.kicker.model.TeamInvitation;
 import de.almostintelligent.kicker.service.AccountService;
 import de.almostintelligent.kicker.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,18 @@ public class TeamController {
         Team team = teamService.createTeam(createTeamRequest);
         team = accountService.addTeamToAccount(team, accountService.currentUser());
         return new EmberModel.Builder(Team.class, team).build();
+    }
+
+    @RequestMapping(
+            value = "/api/teamInvitations",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8
+    )
+    public EmberModel getTeamInvitations() throws AccountNotFoundException, LoginFailedException {
+        Account account = accountService.currentUser();
+        return new EmberModel.Builder(TeamInvitation.class, account.getTeamInvitations())
+                .sideLoad(Team.class, account.getTeams())
+                .build();
     }
 
 }

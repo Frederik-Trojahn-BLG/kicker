@@ -8,18 +8,16 @@ import lombok.EqualsAndHashCode;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
-@Entity(name = "game_result")
+@Entity(name = "team_invitation")
 @EqualsAndHashCode(callSuper = false)
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Account.class)
-public class GameResult extends BaseEntity {
-
-    @ManyToOne(optional = false)
-    private Team team;
-
-    private Integer score;
+public class TeamInvitation extends BaseEntity {
 
     @ManyToOne
-    private Game game;
+    private Team team;
+
+    @ManyToOne
+    private Account account;
 
     @JsonIdentityReference(alwaysAsId = true)
     public Team getTeam() {
@@ -30,20 +28,12 @@ public class GameResult extends BaseEntity {
         this.team = team;
     }
 
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
     @JsonIdentityReference(alwaysAsId = true)
-    public Game getGame() {
-        return game;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setGame(Game game) {
-        this.game = game;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
