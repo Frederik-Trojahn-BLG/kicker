@@ -1,25 +1,26 @@
-<div class="container-fluid">
-    <h2>Meine Teams</h2>
+<table class="table table-condensed">
+    <thead>
+    <tr>
+        <th>Team</th>
+        <th>Aktionen</th>
+    </tr>
+    </thead>
+
+    <tbody>
     {{#each teams as |team|}}
-        <div class="col-md-4 pull-left">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{{#link-to "kicker.teams.detail" team.id}}{{team.name}}{{/link-to}}</h3>
+        <tr>
+            <td>{{#link-to "kicker.teams.detail" team.id}}{{team.name}}{{/link-to}}</td>
+            <td>
+                <div class="btn-group btn-group-sm">
+                    {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Details{{/link-to}}
+                    {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Bearbeiten{{/link-to}}
+                    {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Einladen{{/link-to}}
+                    {{#link-to "kicker.teams.detail" team.id class="btn btn-danger"}}Verlassen{{/link-to}}
                 </div>
-                <ul class="list-group">
-                    {{#each team.members as |member|}}
-                        <li class="list-group-item">{{member.name}}</li>
-                    {{/each}}
-                </ul>
-                <div class="panel-body">
-                    <h5>Aktionen</h5>
-                    <div class="btn-group">
-                        {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Details{{/link-to}}
-                        {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Einladen{{/link-to}}
-                    </div>
-                </div>
-            </div>
-        </div>
+            </td>
+        </tr>
     {{/each}}
-</div>
+    </tbody>
+
+</table>
 {{outlet}}
