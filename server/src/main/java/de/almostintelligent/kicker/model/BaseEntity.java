@@ -26,6 +26,9 @@ abstract public class BaseEntity {
     @Column(name = "updated_at")
     protected Long updatedAt;
 
+    @Column(name = "deleted", columnDefinition = "TINYINT(1) DEFAULT 0")
+    protected Boolean deleted;
+
     @PrePersist
     public void prePersist() {
         createdAt = new Date().getTime();

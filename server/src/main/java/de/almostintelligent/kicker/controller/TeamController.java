@@ -4,19 +4,17 @@ import de.almostintelligent.kicker.api.request.CreateTeamRequest;
 import de.almostintelligent.kicker.ember.EmberModel;
 import de.almostintelligent.kicker.exception.AccountNotFoundException;
 import de.almostintelligent.kicker.exception.LoginFailedException;
+import de.almostintelligent.kicker.exception.TeamNotFoundException;
 import de.almostintelligent.kicker.media.MediaType;
 import de.almostintelligent.kicker.model.Account;
+import de.almostintelligent.kicker.model.League;
 import de.almostintelligent.kicker.model.Team;
 import de.almostintelligent.kicker.model.TeamInvitation;
 import de.almostintelligent.kicker.service.AccountService;
 import de.almostintelligent.kicker.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @RestController
@@ -38,15 +36,8 @@ public class TeamController {
     public EmberModel getTeams() throws AccountNotFoundException, LoginFailedException {
         Account account = accountService.currentUser();
         Set<Team> teams = account.getTeams();
-        Set<Account> members = new HashSet<>();
-        members.add(account);
-        teams.forEach(team -> {
-            team.getMembers().forEach((member) -> {
-                members.add(member);
-            });
-        });
         return new EmberModel.Builder(Team.class, teams)
-                .sideLoad(Account.class, members)
+                .sideLoad(Account.class, teamService.getMembersFromTeams(teams))
                 .build();
     }
 
@@ -59,6 +50,18 @@ public class TeamController {
         Team team = teamService.createTeam(createTeamRequest);
         team = accountService.addTeamToAccount(team, accountService.currentUser());
         return new EmberModel.Builder(Team.class, team).build();
+    }
+
+    @RequestMapping(
+            value = "/api/teams/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8)
+    public EmberModel getTeam(@PathVariable String id) throws TeamNotFoundException {
+        Team team = teamService.getTeam(id);
+        return new EmberModel.Builder(Team.class, team)
+                .sideLoad(League.class, team.getLeagues())
+                .sideLoad(Account.class, team.getMembers())
+                .build();
     }
 
     @RequestMapping(

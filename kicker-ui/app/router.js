@@ -15,6 +15,7 @@ Router.map(function() {
       this.route('overview');
       this.route('invitations');
       this.route('invite');
+      this.route('detail', {path: ':team_id'});
     });
     this.route('leagues', function() {
       this.route('overview');

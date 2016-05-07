@@ -1,29 +1,25 @@
-<table class="table">
-
-    <thead>
-    <tr>
-        <th width="30%">Name</th>
-        <th width="40%">Spieler</th>
-        <th></th>
-    </tr>
-    </thead>
-
-    <tbody>
+<div class="container-fluid">
+    <h2>Meine Teams</h2>
     {{#each teams as |team|}}
-        <tr>
-            <td>{{team.name}}</td>
-            <td>
-                {{#each team.members as |member|}}
-                    {{member.name}}
-                {{/each}}
-            </td>
-            <td>
-
-            </td>
-        </tr>
+        <div class="col-md-4 pull-left">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{#link-to "kicker.teams.detail" team.id}}{{team.name}}{{/link-to}}</h3>
+                </div>
+                <ul class="list-group">
+                    {{#each team.members as |member|}}
+                        <li class="list-group-item">{{member.name}}</li>
+                    {{/each}}
+                </ul>
+                <div class="panel-body">
+                    <h5>Aktionen</h5>
+                    <div class="btn-group">
+                        {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Details{{/link-to}}
+                        {{#link-to "kicker.teams.detail" team.id class="btn btn-default"}}Einladen{{/link-to}}
+                    </div>
+                </div>
+            </div>
+        </div>
     {{/each}}
-    </tbody>
-
-</table>
-
+</div>
 {{outlet}}

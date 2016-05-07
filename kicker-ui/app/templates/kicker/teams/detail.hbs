@@ -1,0 +1,25 @@
+<div class="container-fluid">
+    <h1>{{model.name}}</h1>
+
+    <div class="btn-group">
+        <button class="btn btn-danger">Verlassen</button>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Spieler</h2>
+            {{#each model.members as |member|}}
+                <div>{{member.name}}</div>
+            {{/each}}
+        </div>
+        <div class="col-md-6">
+            <h2>Ligen</h2>
+            {{#each model.leagues as |league|}}
+                <div>{{league.name}}</div>
+            {{/each}}
+        </div>
+    </div>
+
+</div>
+
+{{outlet}}
