@@ -80,4 +80,12 @@ public class AccountService {
         accountRepository.flush();
         return teamRepository.findOne(team.getId());
     }
+
+    public Account getAccount(String id) {
+        if (id != null) {
+            return accountRepository.findOne(id);
+        }
+
+        return null;
+    }
 }

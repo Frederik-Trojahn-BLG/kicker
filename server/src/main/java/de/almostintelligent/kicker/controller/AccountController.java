@@ -4,8 +4,10 @@ import de.almostintelligent.kicker.ember.EmberModel;
 import de.almostintelligent.kicker.exception.AccountNotFoundException;
 import de.almostintelligent.kicker.exception.LoginFailedException;
 import de.almostintelligent.kicker.media.MediaType;
+import de.almostintelligent.kicker.model.Account;
 import de.almostintelligent.kicker.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +22,22 @@ public class AccountController {
         this.accountService = accountService;
     }
 
-    @RequestMapping(value = "/api/currentUsers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8)
+    @RequestMapping(
+            value = "/api/currentUsers",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8
+    )
     public EmberModel getCurrentUser() throws AccountNotFoundException, LoginFailedException {
         return new EmberModel.Builder(AccountService.CURRENT_USER, accountService.currentUser()).build();
+    }
+
+    @RequestMapping(
+            value = "api/account/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_UTF8
+    )
+    public EmberModel getAccount(@PathVariable("id") String id) {
+        return new EmberModel.Builder(Account.class, accountService.getAccount(id)).build();
     }
 
 }

@@ -17,6 +17,7 @@ Router.map(function() {
       this.route('invite');
     });
     this.route('leagues');
+    this.route('admin');
   });
 });
 
