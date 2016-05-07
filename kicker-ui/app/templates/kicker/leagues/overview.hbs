@@ -2,16 +2,16 @@
 
     <thead>
     <tr>
-        <th width="30%">Team</th>
-        <th width="40%">Aktion</th>
+        <th width="30%">Name</th>
+        <th width="40%">Spieler</th>
         <th></th>
     </tr>
     </thead>
 
     <tbody>
-    {{#each model as |invitation|}}
+    {{#each myLeagues as |league|}}
         <tr>
-            <td>{{invitation.team.name}}</td>
+            <td>{{league.name}}</td>
             <td>
                 -
             </td>

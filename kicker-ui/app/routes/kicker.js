@@ -7,6 +7,6 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     },
 
     model() {
-        return this.transitionTo('kicker.dashboard');
+        //return this.transitionTo('kicker.dashboard');
     }
 });

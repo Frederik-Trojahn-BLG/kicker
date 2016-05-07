@@ -7,10 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import de.almostintelligent.kicker.util.EntityUtils;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -25,7 +22,15 @@ public class Team extends BaseEntity {
     @ManyToMany(mappedBy = "teams")
     private Set<Account> members;
 
-    @ManyToMany(mappedBy = "teams")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "team_in_league",
+            joinColumns = @JoinColumn(
+                    name = "team_id",
+                    referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "league_id",
+                    referencedColumnName = "id"))
     private Set<League> leagues;
 
     @OneToMany(mappedBy = "team")

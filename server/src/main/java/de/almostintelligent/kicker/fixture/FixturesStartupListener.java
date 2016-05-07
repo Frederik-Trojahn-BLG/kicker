@@ -45,6 +45,7 @@ public class FixturesStartupListener implements ApplicationListener<EmbeddedServ
     public void onApplicationEvent(EmbeddedServletContainerInitializedEvent event) {
         if (hibernateHBM2ddlAuto.equalsIgnoreCase("create")) {
             createAdmin();
+            createUser();
         }
     }
 
@@ -67,5 +68,22 @@ public class FixturesStartupListener implements ApplicationListener<EmbeddedServ
 
         admin.setRoles(roles);
         accountRepository.save(admin);
+    }
+
+    private void createUser() {
+        Account user = new Account();
+        user.setEmail("user@user.com");
+        user.setName("User User");
+        user.setPassword(BCrypt.hashpw("12345678", BCrypt.gensalt()));
+        user = accountRepository.save(user);
+
+        Set<Role> roles = new HashSet<>();
+
+        Role roleUser = Role.user();
+        roleUser.setAccount(user);
+        roles.add(roleUser);
+
+        user.setRoles(roles);
+        accountRepository.save(user);
     }
 }

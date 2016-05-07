@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @RequestMapping(
-            value = "api/account/{id}",
+            value = "api/accounts/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8
     )

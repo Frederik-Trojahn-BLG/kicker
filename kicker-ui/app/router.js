@@ -16,7 +16,10 @@ Router.map(function() {
       this.route('invitations');
       this.route('invite');
     });
-    this.route('leagues');
+    this.route('leagues', function() {
+      this.route('overview');
+      this.route('create');
+    });
     this.route('admin');
   });
 });

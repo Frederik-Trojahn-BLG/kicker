@@ -1,0 +1,14 @@
+<div class="container-fluid">
+    <form class="create-form" {{action "createLeague" on="submit"}}>
+        <h2>Neue Liga anlegen</h2>
+
+        <div class="form-group">
+            {{input type="text" value=leaugeName class="form-control"}}
+        </div>
+
+        <button class="btn btn-default" type="submit">Anlegen</button>
+    </form>
+
+</div>
+{{outlet}}
+

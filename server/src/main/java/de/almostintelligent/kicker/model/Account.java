@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity(name = "account")
-@EqualsAndHashCode(callSuper = false, exclude = {"teams"})
+@EqualsAndHashCode(callSuper = false, exclude = {"teams", "leagues", "teamInvitations"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Account.class)
 public class Account extends BaseEntity implements UserDetails {
 
@@ -43,6 +43,9 @@ public class Account extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "account")
     private Set<TeamInvitation> teamInvitations;
+
+    @OneToMany(mappedBy = "account")
+    private Set<League> leagues;
 
     @Override
     @JsonIgnore
@@ -137,5 +140,14 @@ public class Account extends BaseEntity implements UserDetails {
 
     public void setTeamInvitations(Set<TeamInvitation> teamInvitations) {
         this.teamInvitations = teamInvitations;
+    }
+
+    @JsonIgnore
+    public Set<League> getLeagues() {
+        return leagues;
+    }
+
+    public void setLeagues(Set<League> leagues) {
+        this.leagues = leagues;
     }
 }

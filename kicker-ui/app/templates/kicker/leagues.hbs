@@ -1,17 +1,15 @@
 <nav class="navbar navbar-default">
     <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Ligen</a>
+            {{#link-to "kicker.leagues.overview" class="navbar-brand"}}Ligen{{/link-to}}
         </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="#">Übersicht</a></li>
-                <li><a href="#">Anlegen</a></li>
+                <li>{{#link-to "kicker.leagues.overview"}}Übersicht{{/link-to}}</li>
+                <li>{{#link-to "kicker.leagues.create"}}Anlegen{{/link-to}}</li>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div>
+    </div>
 </nav>
 {{outlet}}
