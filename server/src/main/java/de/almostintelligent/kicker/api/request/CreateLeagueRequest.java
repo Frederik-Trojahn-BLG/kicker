@@ -1,17 +1,19 @@
 package de.almostintelligent.kicker.api.request;
 
+import de.almostintelligent.kicker.api.dto.LeagueDTO;
+
 /**
  * Created by frederiktrojahn on 07.05.16.
  */
 public class CreateLeagueRequest {
 
-    private String name;
+    private LeagueDTO league;
 
-    public String getName() {
-        return name;
+    public LeagueDTO getLeague() {
+        return league;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLeague(LeagueDTO league) {
+        this.league = league;
     }
 }

@@ -41,7 +41,7 @@ public class LeagueService {
         Account account = accountService.currentUser();
 
         League league = new League();
-        league.setName(createLeagueRequest.getName());
+        league.setName(createLeagueRequest.getLeague().getName());
         league.setAccount(account);
 
         return leagueRepository.save(league);

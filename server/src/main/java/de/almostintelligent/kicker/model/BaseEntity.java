@@ -27,7 +27,7 @@ abstract public class BaseEntity {
     protected Long updatedAt;
 
     @Column(name = "deleted", columnDefinition = "TINYINT(1) DEFAULT 0")
-    protected Boolean deleted;
+    protected Boolean deleted = false;
 
     @PrePersist
     public void prePersist() {

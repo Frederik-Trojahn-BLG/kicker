@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
             });
 
             league.save().then(function() {
+                me.setProperties({leagueName: ''});
                 me.transitionToRoute('kicker.leagues.overview');
             });
         }

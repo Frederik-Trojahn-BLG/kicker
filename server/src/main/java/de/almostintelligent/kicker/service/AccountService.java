@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -87,5 +88,9 @@ public class AccountService {
         }
 
         return null;
+    }
+
+    public Collection<Account> getAccounts() {
+        return accountRepository.findAll();
     }
 }
