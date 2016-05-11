@@ -39,6 +39,9 @@ public class Team extends BaseEntity {
     @OneToMany(mappedBy = "team")
     private Set<TeamInvitation> teamInvitations;
 
+    @OneToMany(mappedBy = "team")
+    private Set<LeagueTableEntry> leagueTableEntries;
+
     public String getName() {
         return name;
     }
@@ -85,5 +88,13 @@ public class Team extends BaseEntity {
 
     public void setTeamInvitations(Set<TeamInvitation> teamInvitations) {
         this.teamInvitations = teamInvitations;
+    }
+
+    public Set<LeagueTableEntry> getLeagueTableEntries() {
+        return leagueTableEntries;
+    }
+
+    public void setLeagueTableEntries(Set<LeagueTableEntry> leagueTableEntries) {
+        this.leagueTableEntries = leagueTableEntries;
     }
 }

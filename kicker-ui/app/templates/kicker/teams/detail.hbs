@@ -15,10 +15,10 @@
             </div>
             <div class="form-group">
                 <label>Einladen:</label>
-                {{input type="text" value=filterName action="updateList" on="key-pressed" class="form-control"}}
+                {{input type="text" value=filterName key-up="updateList" class="form-control"}}
                 <div>
                     {{#each filteredAccounts as |a|}}
-                        <div>{{a.name}}</div>
+                        <div style="padding: 5px;">{{a.name}} <button {{action "invite" a.id}} class="btn btn-xs btn-default">Einladen</button></div>
                     {{/each}}
                 </div>
             </div>

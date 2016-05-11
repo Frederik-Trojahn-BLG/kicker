@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity(name = "league")
 @EqualsAndHashCode(callSuper = false, exclude = {"account", "teams", "games"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Account.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class League extends BaseEntity {
 
     @Column(nullable = false)
@@ -25,6 +25,12 @@ public class League extends BaseEntity {
 
     @ManyToOne(optional = false)
     private Account account;
+
+    @OneToMany(mappedBy = "league")
+    private Set<GamePlanEntry> gamePlanEntries;
+
+    @OneToMany(mappedBy = "league")
+    private Set<LeagueTableEntry> leagueTableEntries;
 
     public String getName() {
         return name;
@@ -59,5 +65,13 @@ public class League extends BaseEntity {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public Set<GamePlanEntry> getGamePlanEntries() {
+        return gamePlanEntries;
+    }
+
+    public void setGamePlanEntries(Set<GamePlanEntry> gamePlanEntries) {
+        this.gamePlanEntries = gamePlanEntries;
     }
 }
