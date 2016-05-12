@@ -6,6 +6,10 @@
     </div>
 
     <div class="row">
+        {{#if showError}}
+            <div>{{errorMsg}}</div>
+            <a {{action "hideError"}}>X</a>
+        {{/if}}
         <div class="col-md-6">
             <h2>Mitglieder</h2>
             <div>
@@ -18,7 +22,9 @@
                 {{input type="text" value=filterName key-up="updateList" class="form-control"}}
                 <div>
                     {{#each filteredAccounts as |a|}}
-                        <div style="padding: 5px;">{{a.name}} <button {{action "invite" a.id}} class="btn btn-xs btn-default">Einladen</button></div>
+                        <div style="padding: 5px;">{{a.name}}
+                            <button {{action "invite" a.id}} class="btn btn-xs btn-default">Einladen</button>
+                        </div>
                     {{/each}}
                 </div>
             </div>

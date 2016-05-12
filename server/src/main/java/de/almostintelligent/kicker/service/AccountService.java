@@ -36,7 +36,7 @@ public class AccountService {
         this.teamRepository = teamRepository;
     }
 
-    public Account currentUser() throws AccountNotFoundException, LoginFailedException {
+    public Account currentAccount() throws AccountNotFoundException, LoginFailedException {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         if (securityContext == null) {
             failedAuthentication("no security context found");
@@ -82,12 +82,15 @@ public class AccountService {
         return teamRepository.findOne(team.getId());
     }
 
-    public Account getAccount(String id) {
+    public Account getAccount(String id) throws AccountNotFoundException {
         if (id != null) {
-            return accountRepository.findOne(id);
+            Account account = accountRepository.findOne(id);
+            if (account != null) {
+                return account;
+            }
         }
 
-        return null;
+        throw new AccountNotFoundException();
     }
 
     public Collection<Account> getAccounts() {

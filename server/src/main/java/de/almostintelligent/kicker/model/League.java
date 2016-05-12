@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity(name = "league")
-@EqualsAndHashCode(callSuper = false, exclude = {"account", "teams", "games"})
+@EqualsAndHashCode(callSuper = true, exclude = {"account", "teams", "games", "gamePlanEntries", "leagueTableEntries"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class League extends BaseEntity {
 

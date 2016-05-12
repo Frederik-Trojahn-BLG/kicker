@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity(name = "team")
-@EqualsAndHashCode(callSuper = false, exclude = {"members", "leagues", "results"})
+@EqualsAndHashCode(callSuper = true, exclude = {"members", "leagues", "results", "teamInvitations", "leagueTableEntries"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Account.class)
 public class Team extends BaseEntity {
 

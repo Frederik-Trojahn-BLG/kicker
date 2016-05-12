@@ -35,7 +35,7 @@ public class LeagueController {
             produces = MediaType.APPLICATION_JSON_UTF8
     )
     public EmberModel getLeagues() throws AccountNotFoundException, LoginFailedException {
-        Account account = accountService.currentUser();
+        Account account = accountService.currentAccount();
         return new EmberModel.Builder(League.class, account.getLeagues())
                 .sideLoad(Team.class, account.getTeams())
                 .build();
@@ -47,7 +47,7 @@ public class LeagueController {
             produces = MediaType.APPLICATION_JSON_UTF8
     )
     public EmberModel createLeague(@RequestBody CreateLeagueRequest createLeagueRequest) throws AccountNotFoundException, LoginFailedException {
-        Account account = accountService.currentUser();
+        Account account = accountService.currentAccount();
         League league = leagueService.createLeague(createLeagueRequest);
 
         return new EmberModel.Builder(League.class, league)

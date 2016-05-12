@@ -38,7 +38,7 @@ public class LeagueService {
 
     public League createLeague(CreateLeagueRequest createLeagueRequest) throws AccountNotFoundException, LoginFailedException {
 
-        Account account = accountService.currentUser();
+        Account account = accountService.currentAccount();
 
         League league = new League();
         league.setName(createLeagueRequest.getLeague().getName());

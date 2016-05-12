@@ -90,10 +90,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                             "/scripts/**",
                             "/assets/**",
                             "/views/**",
-                            "/styles/**").anonymous();
+                            "/styles/**").anonymous()
+                    .antMatchers("/api/**").hasRole("USER");
             //.antMatchers("/api/register").anonymous()
             //.antMatchers("/api/blogs").anonymous()
-            //.antMatchers("/api/**").hasRole("USER")
             //.antMatchers("/dev/**").permitAll()
             //.antMatchers("/admin/**").hasRole("ADMIN");
         }

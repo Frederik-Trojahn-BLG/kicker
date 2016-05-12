@@ -28,7 +28,7 @@ public class AccountController {
             produces = MediaType.APPLICATION_JSON_UTF8
     )
     public EmberModel getCurrentUser() throws AccountNotFoundException, LoginFailedException {
-        return new EmberModel.Builder(AccountService.CURRENT_USER, accountService.currentUser()).build();
+        return new EmberModel.Builder(AccountService.CURRENT_USER, accountService.currentAccount()).build();
     }
 
     @RequestMapping(
@@ -45,7 +45,7 @@ public class AccountController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_UTF8
     )
-    public EmberModel getAccount(@PathVariable("id") String id) {
+    public EmberModel getAccount(@PathVariable("id") String id) throws AccountNotFoundException {
         return new EmberModel.Builder(Account.class, accountService.getAccount(id)).build();
     }
 
